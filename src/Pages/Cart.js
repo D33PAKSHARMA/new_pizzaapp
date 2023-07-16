@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../store/cartSlice";
+import {
+  removeFromCart,
+  decreaseItems,
+  increaseItems,
+} from "../store/cartSlice";
 
 const Cart = () => {
   const Dispatch = useDispatch();
@@ -12,6 +16,16 @@ const Cart = () => {
   // Delete item from cart
   const deleteFromCart = (product) => {
     Dispatch(removeFromCart(product));
+  };
+
+  // Decrease cart items
+  const decrease = (product) => {
+    Dispatch(decreaseItems(product));
+  };
+
+  // increase cart items
+  const increase = (product) => {
+    Dispatch(increaseItems(product));
   };
 
   return cartItems.length ? (
@@ -28,11 +42,17 @@ const Cart = () => {
                     <span className="font-bold ml-4 w-48">{product.name} </span>
                   </div>
                   <div>
-                    <button className="rounded-full bg-yellow-500 px-4 py-2 leading-none">
+                    <button
+                      className="rounded-full bg-yellow-500 px-4 py-2 leading-none"
+                      onClick={() => decrease(product)}
+                    >
                       -
                     </button>
                     <b className="px-2">{product.cartQuantity}</b>
-                    <button className="rounded-full bg-yellow-500 px-4 py-2 leading-none">
+                    <button
+                      className="rounded-full bg-yellow-500 px-4 py-2 leading-none"
+                      onClick={() => increase(product)}
+                    >
                       +
                     </button>
                   </div>
